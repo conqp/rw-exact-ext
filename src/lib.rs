@@ -23,6 +23,8 @@ pub trait ReadExactExt: Read {
 
     /// Read one byte and interpret it as a `bool`.
     ///
+    /// Returns `true` if the read byte is non-zero, or `false` otherwise.
+    ///
     /// For further semantics please refer to [`Read::read_exact`].
     ///
     /// # Examples
