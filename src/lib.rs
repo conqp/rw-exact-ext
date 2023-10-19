@@ -120,7 +120,7 @@ impl<T> ReadExactExt for T where T: Read {}
 pub trait WriteAllExt: Write {
     /// Write a number to bytes in big endian.
     ///
-    /// For further semantics please refer to [`Read::read_exact`].
+    /// For further semantics please refer to [`Write::write_all`].
     ///
     /// # Examples
     /// ```
@@ -152,7 +152,7 @@ pub trait WriteAllExt: Write {
 
     /// Write a number to bytes in little endian.
     ///
-    /// For further semantics please refer to [`Read::read_exact`].
+    /// For further semantics please refer to [`Write::write_all`].
     ///
     /// # Examples
     /// ```
@@ -184,7 +184,7 @@ pub trait WriteAllExt: Write {
 
     /// Write a number to bytes in native endianness.
     ///
-    /// For further semantics please refer to [`Read::read_exact`].
+    /// For further semantics please refer to [`Write::write_all`].
     #[cfg(feature = "num-traits")]
     #[allow(clippy::missing_errors_doc)]
     fn write_num_ne<N, const SIZE: usize>(&mut self, num: N) -> Result<()>
