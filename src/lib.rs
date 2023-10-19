@@ -21,6 +21,27 @@ pub trait ReadExactExt: Read {
         Ok(buffer)
     }
 
+    /// Read one byte and interpret it as a `bool`.
+    ///
+    /// For further semantics please refer to [`Read::read_exact`].
+    ///
+    /// # Examples
+    /// ```
+    /// use rw_exact_ext::ReadExactExt;
+    /// use std::io::Cursor;
+    ///
+    /// let bytes = [0x01, 0x00, 0xEF, 0x42];
+    /// let mut cursor = Cursor::new(&bytes);
+    /// assert!(cursor.read_bool().unwrap());
+    /// assert!(!cursor.read_bool().unwrap());
+    /// assert!(cursor.read_bool().unwrap());
+    /// assert!(cursor.read_bool().unwrap());
+    /// ```
+    #[allow(clippy::missing_errors_doc)]
+    fn read_bool(&mut self) -> Result<bool> {
+        self.read_array_exact::<1>().map(|[byte]| byte != 0)
+    }
+
     /// Read a `Vec<u8>` of a given size.
     ///
     /// For further semantics please refer to [`Read::read_exact`].
