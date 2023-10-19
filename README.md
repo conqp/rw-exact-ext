@@ -1,2 +1,2 @@
 # rw-exact-ext
-Extension of std::io to read and write data types with exact amounts of bytes
+Extension of `std::io` to read and write data types with exact amounts of bytes
