@@ -3,6 +3,7 @@ name = "rw-exact-ext"
 description = "Extension of std::io to read and write data types with exact amounts of bytes."
 license = "MIT"
 repository = "https://github.com/conqp/rw-exact-ext"
+documentation = "https://docs.rs/rw-exact-ext/"
 keywords = ["read", "write", "extension", "trait", "number"]
 categories = ["rust-patterns"]
 version = "0.1.2"
