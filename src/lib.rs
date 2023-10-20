@@ -141,6 +141,28 @@ pub trait ReadExactExt: Read {
 impl<T> ReadExactExt for T where T: Read {}
 
 pub trait WriteAllExt: Write {
+    /// Write a `bool` as one byte.
+    ///
+    /// For further semantics please refer to [`Read::read_exact`].
+    ///
+    /// # Examples
+    /// ```
+    /// use rw_exact_ext::WriteAllExt;
+    /// use std::io::Cursor;
+    ///
+    /// let mut bytes = vec![0xFF];
+    ///
+    /// Cursor::new(&mut bytes).write_bool(true).unwrap();
+    /// assert_eq!(bytes, [0x01]);
+    ///
+    /// Cursor::new(&mut bytes).write_bool(false).unwrap();
+    /// assert_eq!(bytes, [0x00]);
+    /// ```
+    #[allow(clippy::missing_errors_doc)]
+    fn write_bool(&mut self, boolean: bool) -> Result<()> {
+        self.write_all(&[boolean.into()])
+    }
+
     /// Write a number to bytes in big endian.
     ///
     /// For further semantics please refer to [`Write::write_all`].
