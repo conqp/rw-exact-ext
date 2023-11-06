@@ -6,12 +6,13 @@ repository = "https://github.com/conqp/rw-exact-ext"
 documentation = "https://docs.rs/rw-exact-ext/"
 keywords = ["read", "write", "extension", "trait", "number"]
 categories = ["rust-patterns"]
-version = "0.1.7"
+version = "0.1.8"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+heapless = { version = "0.7.16", optional = true }
 num-traits = { version = "0.2.17", optional = true }
 
 [package.metadata.docs.rs]
