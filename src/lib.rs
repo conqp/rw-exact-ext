@@ -83,7 +83,6 @@ pub trait ReadExactExt: Read {
     #[cfg(feature = "heapless")]
     fn read_heapless_vec_exact<const SIZE: usize>(&mut self) -> Result<heapless::Vec<u8, SIZE>> {
         let buffer: [u8; SIZE] = self.read_array_exact()?;
-        // Workaround for https://github.com/rust-embedded/heapless/issues/407
         Ok(heapless::Vec::<u8, SIZE>::from_slice(&buffer).unwrap_or_else(|_| unreachable!()))
     }
 
