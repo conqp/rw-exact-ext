@@ -64,6 +64,29 @@ pub trait ReadExactExt: Read {
         Ok(buffer)
     }
 
+    /// Read a `heapless::Vec<u8>` of a constant size.
+    ///
+    /// For further semantics please refer to [`Read::read_exact`].
+    ///
+    /// # Examples
+    /// ```
+    /// use rw_exact_ext::ReadExactExt;
+    /// use std::io::Cursor;
+    ///
+    /// let bytes = [0xAB, 0xCD, 0xEF, 0x42];
+    /// let vec: heapless::Vec<u8, 4> = Cursor::new(&bytes).read_heapless_vec_exact().unwrap();
+    /// eprintln!("Capacity: {}", vec.capacity());
+    /// eprintln!("Len: {}", vec.len());
+    /// assert_eq!(&vec, &bytes);
+    /// ```
+    #[allow(clippy::missing_errors_doc)]
+    #[cfg(feature = "heapless")]
+    fn read_heapless_vec_exact<const SIZE: usize>(&mut self) -> Result<heapless::Vec<u8, SIZE>> {
+        let buffer: [u8; SIZE] = self.read_array_exact()?;
+        // Workaround for https://github.com/rust-embedded/heapless/issues/407
+        Ok(heapless::Vec::<u8, SIZE>::from_slice(&buffer).unwrap_or_else(|_| unreachable!()))
+    }
+
     /// Read a number from a byte array in big endian.
     ///
     /// For further semantics please refer to [`Read::read_exact`].
