@@ -82,8 +82,10 @@ pub trait ReadExactExt: Read {
     #[allow(clippy::missing_errors_doc)]
     #[cfg(feature = "heapless")]
     fn read_heapless_vec_exact<const SIZE: usize>(&mut self) -> Result<heapless::Vec<u8, SIZE>> {
-        let buffer: [u8; SIZE] = self.read_array_exact()?;
-        Ok(heapless::Vec::<u8, SIZE>::from_slice(&buffer).unwrap_or_else(|_| unreachable!()))
+        let mut vec = heapless::Vec::<u8, SIZE>::new();
+        unsafe { vec.set_len(SIZE) };
+        self.read_exact(&mut vec)?;
+        Ok(vec)
     }
 
     /// Read a number from a byte array in big endian.
