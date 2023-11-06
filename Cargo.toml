@@ -6,7 +6,7 @@ repository = "https://github.com/conqp/rw-exact-ext"
 documentation = "https://docs.rs/rw-exact-ext/"
 keywords = ["read", "write", "extension", "trait", "number"]
 categories = ["rust-patterns"]
-version = "0.1.8"
+version = "0.1.9"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html

@@ -68,22 +68,28 @@ pub trait ReadExactExt: Read {
     ///
     /// For further semantics please refer to [`Read::read_exact`].
     ///
+    /// # Safety
+    /// Behaviour of this method is undefined, if `size` > `SIZE`.
+    ///
     /// # Examples
     /// ```
     /// use rw_exact_ext::ReadExactExt;
     /// use std::io::Cursor;
     ///
     /// let bytes = [0xAB, 0xCD, 0xEF, 0x42];
-    /// let vec: heapless::Vec<u8, 4> = Cursor::new(&bytes).read_heapless_vec_exact().unwrap();
+    /// let vec: heapless::Vec<u8, 4> = unsafe { Cursor::new(&bytes).read_heapless_vec_exact(4).unwrap() };
     /// eprintln!("Capacity: {}", vec.capacity());
     /// eprintln!("Len: {}", vec.len());
     /// assert_eq!(&vec, &bytes);
     /// ```
     #[allow(clippy::missing_errors_doc)]
     #[cfg(feature = "heapless")]
-    fn read_heapless_vec_exact<const SIZE: usize>(&mut self) -> Result<heapless::Vec<u8, SIZE>> {
+    unsafe fn read_heapless_vec_exact<const SIZE: usize>(
+        &mut self,
+        size: usize,
+    ) -> Result<heapless::Vec<u8, SIZE>> {
         let mut vec = heapless::Vec::<u8, SIZE>::new();
-        unsafe { vec.set_len(SIZE) };
+        vec.set_len(size);
         self.read_exact(&mut vec)?;
         Ok(vec)
     }
