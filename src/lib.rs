@@ -69,7 +69,7 @@ pub trait ReadExactExt: Read {
     /// For further semantics please refer to [`Read::read_exact`].
     ///
     /// # Safety
-    /// Behaviour of this method is undefined, if `size` > `SIZE`.
+    /// Behavior of this method is undefined, if `size` > `SIZE`.
     ///
     /// # Examples
     /// ```
